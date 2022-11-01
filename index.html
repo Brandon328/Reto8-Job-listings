@@ -3,10 +3,57 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <!-- displays site properly based on user's device -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=League+Spartan:wght@500;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
     <title>Job Listings</title>
   </head>
   <body>
+    <header></header>
+    <main>
+      <div class="tags-container">
+        <section class="tags-section">
+          <div class="tag">
+            <span>Frontend</span>
+            <figure><img src="./images/icon-remove.svg" alt="icon remove"></figure>
+          </div>
+          <div class="tag">
+            <span>CSS</span>
+            <figure><img src="./images/icon-remove.svg" alt="icon remove"></figure>
+          </div>
+          <div class="tag">
+            <span>JavaScript</span>
+            <figure><img src="./images/icon-remove.svg" alt="icon remove"></figure>
+          </div>
+        </section>
+        <a href="" class="btn-clear">Clear</a>
+      </div>
+      <article>
+        <section class="card-main">
+          <img src="./images/photosnap.svg" alt="logo" class="logo">
+          <div class="card-main-2">
+            <section class="card-header">
+              <h3>Photosnap</h3>
+              <p class="new">NEW!</p>
+              <p class="featured">FEATURED</p>
+            </section>
+            <h2>Senior Frontend Developer</h2>
+            <p class="extra-info">1d ago • Full time • USA only</p>
+          </div>
+        </section>
+        <hr>
+        <section class="card-tags">
+          <p>Frontend</p>
+          <p>Senior</p>
+          <p>HTML</p>
+          <p>CSS</p>
+          <p>JavaScript</p>
+        </section>
+      </article>
+      
+    </main>
+    <script src="./data.js"></script>
     <script src="./main.js"></script>
   </body>
 </html>
