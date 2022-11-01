@@ -43,7 +43,8 @@ main .tags-container {
   padding: 20px 20px 5px;
   border-radius: 8px;
   background-color: white;
-  display: flex;
+  display: none;
+  /* display: flex; */
   justify-content: space-between;
   align-items: center;
   box-shadow: 2px 13px 60px -3px rgba(43, 58, 58, 0.2);
@@ -66,6 +67,7 @@ main .tags-container .tag{
   color: var(--desaturated-dark-cyan);
   display: inline-flex;
   align-items: center;
+  
 }
 
 .tag span{
@@ -90,6 +92,7 @@ main .tags-container .tag{
 
 .tags-container .btn-clear:hover{
   text-decoration: underline;
+  cursor: pointer;
 }
 
 /** cards */
@@ -201,6 +204,9 @@ article .card-tags p:hover{
   article .card-main{
     display: flex;
     align-items: center;
+  }
+  header{
+    background-image: url('./images/bg-header-desktop.svg');
   }
 }
 @media (min-width: 1000px) {
