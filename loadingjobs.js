@@ -1,9 +1,36 @@
 const main_content = document.getElementById('main-content');
+let active_filters = [];
+
+function filterjobs() {
+  let filtered_jobs = jobs.filter(job => {
+    let job_passed = active_filters.some(filter => {
+      if (job.role == filter || job.level == filter) {
+        return true;
+      }
+      if (job.languages) {
+        return job.languages.some(language => language == filter);
+        
+      }
+      if (job.tools) {
+        return job.tools.some(tool => tool == filter);
+      }
+    });
+    if (job_passed) return job;
+  });
+  console.log(filtered_jobs);
+  return filtered_jobs;
+}
 
 function loadjobs() {
-  jobs.forEach(job => {
-    let languages_html = ''
-    let tools_html = ''
+  let filtered_jobs = [];
+  main_content.textContent = '';
+  if (active_filters.length != 0) filtered_jobs = filterjobs();
+  else filtered_jobs = jobs;
+
+  filtered_jobs.forEach(job => {
+    let languages_html = '';
+    let tools_html = '';
+
     if (job.languages) {
       job.languages.forEach(language => {
         languages_html += `<p id='filter-${language}-${job.id}' data-filter='${language}'>${language}</p>`;

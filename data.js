@@ -1,4 +1,4 @@
-const jobs=[
+const jobs = [
   {
     "id": 1,
     "company": "Photosnap",
