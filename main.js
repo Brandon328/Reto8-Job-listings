@@ -32,94 +32,45 @@ function removeFilterEvent() {
   });
 }
 
+function filterEvent(filter) {
+    data_filter = filter.getAttribute('data-filter');
+    if (tags_container.style.display != 'flex') {
+      tags_container.style.display = 'flex';
+    }
+    if (!active_filters.includes(data_filter)) {
+      active_filters.push(data_filter);
+      tags_section.insertAdjacentHTML('beforeend', `
+        <div class="tag">
+          <span>${data_filter}</span>
+          <figure class="clear-this-filter" data-filter='${data_filter}'><img src="./images/icon-remove.svg" alt="icon remove"></figure>
+        </div>
+      `);
+      loadjobs();
+      loadEvents();
+      removeFilterEvent();
+    }
+}
+
+
 function loadEvents() {
   jobs.forEach(job => {
     let role_filter = document.getElementById(`filter-${job.role}-${job.id}`);
     let level_filter = document.getElementById(`filter-${job.level}-${job.id}`);
   
-    role_filter.addEventListener('click', () => {
-      data_filter = role_filter.getAttribute('data-filter');
-      if (tags_container.style.display != 'flex') {
-        tags_container.style.display = 'flex';
-      }
-      if (!active_filters.includes(data_filter)) {
-        active_filters.push(data_filter);
-        tags_section.insertAdjacentHTML('beforeend', `
-          <div class="tag">
-            <span>${data_filter}</span>
-            <figure class="clear-this-filter" data-filter='${data_filter}'><img src="./images/icon-remove.svg" alt="icon remove"></figure>
-          </div>
-        `);
-        loadjobs();
-        loadEvents();
-        removeFilterEvent();
-      }
-    });
-  
-    level_filter.addEventListener('click', () => {
-      data_filter = level_filter.getAttribute('data-filter');
-      if (tags_container.style.display != 'flex') {
-        tags_container.style.display = 'flex';
-      }
-      if (!active_filters.includes(data_filter)) {
-        active_filters.push(data_filter);
-        tags_section.insertAdjacentHTML('beforeend', `
-          <div class="tag">
-            <span>${data_filter}</span>
-            <figure class="clear-this-filter" data-filter='${data_filter}'><img src="./images/icon-remove.svg" alt="icon remove"></figure>
-          </div>
-        `);
-        loadjobs();
-        loadEvents();
-        removeFilterEvent();
-      }
-    });
+    role_filter.addEventListener('click', () => filterEvent(role_filter));
+    level_filter.addEventListener('click', () => filterEvent(level_filter));
   
     if (job.languages) {
       job.languages.forEach(language => {
         let language_filter = document.querySelector(`#filter-${language}-${job.id}`);
-        language_filter.addEventListener('click', () => {
-          let data_filter = language_filter.getAttribute('data-filter');
-          if (tags_container.style.display != 'flex') {
-            tags_container.style.display = 'flex';
-          }
-          if (!active_filters.includes(data_filter)) {
-            active_filters.push(data_filter);
-            tags_section.insertAdjacentHTML('beforeend', `
-              <div class="tag">
-                <span>${data_filter}</span>
-                <figure class="clear-this-filter" data-filter='${data_filter}'><img src="./images/icon-remove.svg" alt="icon remove"></figure>
-              </div>
-            `);
-            loadjobs();
-            loadEvents();
-            removeFilterEvent();
-          }
-        });
+        language_filter.addEventListener('click', () => filterEvent(language_filter));
       });
     }
   
     if (job.tools) {
       job.tools.forEach(tool => {
         let tool_filter = document.querySelector(`#filter-${tool}-${job.id}`);
-        tool_filter.addEventListener('click', () => {
-          let data_filter = tool_filter.getAttribute('data-filter');
-          if (tags_container.style.display != 'flex') {
-            tags_container.style.display = 'flex';
-          }
-          if (!active_filters.includes(data_filter)) {
-            active_filters.push(data_filter);
-            tags_section.insertAdjacentHTML('beforeend', `
-              <div class="tag">
-                <span>${data_filter}</span>
-                <figure class="clear-this-filter" data-filter='${data_filter}'><img src="./images/icon-remove.svg" alt="icon remove"></figure>
-              </div>
-            `);
-            loadjobs();
-            loadEvents();
-            removeFilterEvent();
-          }
-        });
+        tool_filter.addEventListener('click', () => filterEvent(tool_filter));
       });
     }
   });
