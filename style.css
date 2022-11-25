@@ -32,6 +32,10 @@ header{
   height: 13vh;
 }
 
+main .inactive{
+  display: none;
+}
+
 /********************* MAIN */
 main{
   padding: 25px;
@@ -39,12 +43,11 @@ main{
   top: -60px;
 }
 
-main .tags-container {
+.tags-container {
   padding: 20px 20px 5px;
   border-radius: 8px;
   background-color: white;
-  display: none;
-  /* display: flex; */
+  display: flex;
   justify-content: space-between;
   align-items: center;
   box-shadow: 2px 13px 60px -3px rgba(43, 58, 58, 0.2);
@@ -54,11 +57,11 @@ main .tags-container {
   margin: 0 auto;
 }
 
-main .tags-container .tags-section{
+.tags-container .tags-section{
   margin-inline-end: 5px;
 }
 
-main .tags-container .tag{
+.tags-container .tag{
   background-color: var(--filter-tablets-color);
   padding: 0 0 0 10px;
   margin: 0 15px 15px 0;
@@ -210,7 +213,7 @@ article .card-tags p:hover{
   }
 }
 @media (min-width: 1000px) {
-  main .tags-container{
+  .tags-container{
     padding: 30px 30px 15px;
   }
   main article{
