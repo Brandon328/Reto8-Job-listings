@@ -161,6 +161,10 @@ article .extra-info{
 article .card-tags{
   margin-block-start: 15px;
 }
+article .card-tags .actived-filter{
+  background-color: var(--desaturated-dark-cyan);
+  color: var(--filter-tablets-color);
+}
 article .card-tags p{
   background-color: var(--filter-tablets-color);
   color: var(--desaturated-dark-cyan);
@@ -169,11 +173,11 @@ article .card-tags p{
   border-radius: 5px;
   display: inline-block;
   margin: 0 15px 15px 0;
+  cursor: pointer;
 }
 article .card-tags p:hover{
   background-color: var(--desaturated-dark-cyan);
   color: var(--filter-tablets-color);
-  cursor: pointer;
 }
 
 /* ********************************************************** RESPONSIVE DESIGN */

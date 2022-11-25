@@ -5,42 +5,43 @@ const btn_clear = document.querySelector('.btn-clear');
 
 let filtered_jobs = []; // jobs filtrados
 let actived_filters = []; // lista de filtros aplicados (historial de filtros aplicados)
+let actived_type_filters = [];
 
 btn_clear.addEventListener('click', () => {
   tags_section.innerHTML = '';
   tags_container.classList.toggle('inactive');
   actived_filters = [];
+  actived_type_filters = [];
   filtered_jobs = [];
   loadjobs(jobs);
 });
 
 
 function removeFilter(event) {
-  const filter_type = event.target.getAttribute('data-filter-type');
+  let fJobs = [];
   const filter = event.target.getAttribute('data-filter');
+  const index = actived_filters.indexOf(filter);
+  const tag = event.target.parentNode.parentNode;
 
-  // const icons_remove_filter = Object.values(document.getElementsByClassName('clear-this-filter'));
-  // icons_remove_filter.forEach(icon_remove => {
-  //   icon_remove.addEventListener('click', () => {
-  //     data_filter = icon_remove.getAttribute('data-filter');
+  actived_filters.splice(index, 1);
+  actived_type_filters.splice(index, 1);
 
-  //     tag_padre = icon_remove.parentNode;
+  // Quitando el tag del front
+  tags_section.removeChild(tag);
+  if (actived_filters.length == 0) {
+    tags_container.classList.toggle('inactive');
+    filtered_jobs = [];
+  }
 
-  //     try {
-  //       tags_section.removeChild(tag_padre);
-  //       let i = active_filters.indexOf(data_filter);
-  //       active_filters.splice(i, 1);
-  //       loadjobs();
-  //       if (active_filters.length == 0) {
-  //         tags_container.style.display = 'none';
-  //       }
-  //     }
-  //     catch {
-  //     }
+  // Volviendo a filtrar los jobs
+  fJobs = jobs;
+  actived_filters.forEach((filter, index) => {
+    filterJobs(fJobs, actived_type_filters[index], filter);
+    fJobs = filtered_jobs;
+  });
 
-  //   });
-  // });
-  console.log('quita filtro!!');
+  // Imprimiendo los jobs filtrados
+  loadjobs(fJobs);
 }
 
 function printFilter(filter_type, filter) {
@@ -49,7 +50,7 @@ function printFilter(filter_type, filter) {
   tags_section.insertAdjacentHTML('beforeend', `
     <div class="tag">
       <span>${filter}</span>
-      <figure class="clear-this-filter" data-filter='${filter}' data-filter-type='${filter_type}'>
+      <figure class="clear-this-filter" data-filter='${filter}'>
         <img src="./images/icon-remove.svg" alt="icon remove" onclick='removeFilter(event)'>
       </figure>
     </div>
@@ -62,12 +63,14 @@ function filterClicked(event) {
   if (!actived_filters.includes(filter)) {
     // filtra si el filtro no fue aplicado con anterioridad
     actived_filters.push(filter);
+    actived_type_filters.push(filter_type);
     printFilter(filter_type, filter);
 
     if (filtered_jobs.length != 1) {
       // no filtra si hay solo un job en la lista de jobs filtrados
       filterJobs(filtered_jobs, filter_type, filter);
     }
+    loadjobs(filtered_jobs);
   }
 }
 
@@ -84,7 +87,6 @@ function filterJobs(jobs_list, filter_type, filter) {
     }
   });
   filtered_jobs = fJobs;
-  loadjobs(fJobs);
 }
 
 function loadjobs(fJobs) {
@@ -94,11 +96,11 @@ function loadjobs(fJobs) {
     let tools_html = '';
 
     job.languages.forEach(language => {
-      languages_html += `<p data-filter='${language}' data-filter-type='languages' onclick='filterClicked(event)'>${language}</p>`;
+      languages_html += `<p data-filter='${language}' data-filter-type='languages' onclick='filterClicked(event)' ${actived_filters.includes(language) ? "class='actived-filter'" : ''}>${language}</p>`;
     });
 
     job.tools.forEach(tool => {
-      tools_html += `<p data-filter='${tool}' data-filter-type='tools' onclick='filterClicked(event)'>${tool}</p>`;
+      tools_html += `<p data-filter='${tool}' data-filter-type='tools' onclick='filterClicked(event)' ${actived_filters.includes(tool) ? "class='actived-filter'" : ''}>${tool}</p>`;
     });
 
     main_content.insertAdjacentHTML("beforeend", `
@@ -117,8 +119,8 @@ function loadjobs(fJobs) {
         </section>
         <hr>
         <section class="card-tags">
-          ${`<p data-filter='${job.role}' data-filter-type='role' onclick='filterClicked(event)'>${job.role}</p>`}
-          ${`<p data-filter='${job.level}' data-filter-type='level' onclick='filterClicked(event)'>${job.level}</p>`}
+          ${`<p data-filter='${job.role}' data-filter-type='role' onclick='filterClicked(event)' ${actived_filters.includes(job.role) ? "class='actived-filter'" : ''}>${job.role}</p>`}
+          ${`<p data-filter='${job.level}' data-filter-type='level' onclick='filterClicked(event)' ${actived_filters.includes(job.level) ? "class='actived-filter'" : ''}>${job.level}</p>`}
           ${languages_html}
           ${tools_html}
         </section>
